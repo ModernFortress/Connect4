@@ -1,6 +1,6 @@
 class Connect4:
     def __init__(self, width, height):
-        '''Creates a blank Connect4 board with given width and height'''
+        '''Creates a blank Connect4 board as a list of lists with given width and height'''
         self.width = width
         self.height = height
         self.board = []
@@ -31,7 +31,7 @@ class Connect4:
         return s
 
     def is_legal_move(self, col):
-        '''Returns True if col exists and has space, otherwise False'''
+        '''Returns True if given column col exists and has space, otherwise returns False'''
         # Exits immediately if col outside board
         if col not in range(self.width):
             return False
@@ -74,14 +74,14 @@ class Connect4:
                 self.board[row][col] = ' '
 
     def is_full(self):
-        ''' Return True if all spaces in the board are occupied, otherwise False '''
+        ''' Returns True if all spaces in the board are occupied, otherwise returns False '''
         for col in range(self.width):
             if self.is_legal_move(col):
                 return False
         return True
 
     def is_win_for(self, player):
-        ''' Return True if the designated player has won, otherwise False '''
+        ''' Returns True if the designated player has won, otherwise False '''
         # check for horizontal wins
         for row in range(self.height):
             for col in range(self.width - 3):
@@ -120,8 +120,7 @@ class Connect4:
         return False
 
     def host_game(self):
-        ''' plays a game of connect four by asking for player moves, 
-            checking for wins, etc'''
+        ''' plays a game of connect four by calling the turn method repeatedly'''
         count = 0
         while True:
             if self.turn(count):
@@ -129,6 +128,12 @@ class Connect4:
             count += 1
 
     def turn(self, count):
+        '''Plays one turn of connect4. Steps for a turn:
+            1. Asks for move
+            2. Checks move is legal
+            3. Makes move
+            4. Checks for wins and ties
+            5. Prints updated board'''
         player = count % 2
         if player == 0:
             move = int(input('Player X, please enter your move: '))
